@@ -1,0 +1,11 @@
+.glass{
+  background: white;
+
+  min-height: 90vh;
+  width: 95%;
+
+  border-radius: 2rem;
+  background: linear-gradient(to right top, rgb(255,255,255,0.7), rgb(255,255,255,0.3));
+
+  padding: 3rem;
+}

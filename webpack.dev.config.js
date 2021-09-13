@@ -19,6 +19,12 @@ const config = {
     },
     compress: true,
     port: 9000,
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+      },
+    },
   },
 
   module: {

@@ -1,0 +1,17 @@
+.nav_button{
+  background: none;
+  border:none;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 5px;
+}
+
+.nav ul{
+  float: left;
+
+  font-size: 18px;
+  color: #44494F;
+  font-weight: bold;
+}
