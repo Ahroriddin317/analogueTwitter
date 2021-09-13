@@ -15,7 +15,7 @@ const config = {
   devServer: {
     hot: true,
     static: {
-      directory: resolve(__dirname, 'public'),
+      directory: resolve(__dirname, 'dist'),
     },
     compress: true,
     port: 9000,
