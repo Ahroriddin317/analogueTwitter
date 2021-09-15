@@ -1,7 +1,9 @@
+import axios from 'axios'
+
 const GET_POSTS = ' GET_POSTS';
 
 const inicialState = {
-  posts: []
+  posts: [],
 }
 
 export default (state = inicialState, action) => {
@@ -12,5 +14,11 @@ export default (state = inicialState, action) => {
     default: {
       return state
     }
+  }
+}
+
+export const getPosts = () => {
+  return (dispatch) => {
+  axios.get('http://localhost:9999/api/posts').then(({ data: posts }) => dispatch({ type: GET_POSTS, posts }));
   }
 }

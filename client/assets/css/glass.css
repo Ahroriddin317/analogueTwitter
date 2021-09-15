@@ -8,4 +8,7 @@
   background: linear-gradient(to right top, rgb(255,255,255,0.7), rgb(255,255,255,0.3));
 
   padding: 3rem;
+
+   display: flex;
+  justify-content: space-between;
 }
