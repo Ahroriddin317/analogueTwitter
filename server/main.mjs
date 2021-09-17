@@ -1,6 +1,6 @@
 import mysqlx from '@mysql/xdevapi'
 import express from 'express';
-const {json} = express
+const { json } = express
 import cors from 'cors';
 
 import { execute, mapRows } from './database.mjs';
@@ -20,8 +20,9 @@ app.get('/api/user/:id', async (req, res) => {
     const user = await execute(client, async session => {
       const table = await session.getDefaultSchema().getTable('users');
       const result = await table.select(['id', 'firstName', 'lastName', 'postsLiked', 'myPosts'])
-      .where(`id = ${id}`)
-      .execute();
+        .where('id = :id')
+        .bind('id', id)
+        .execute();
       return mapRows(result);
     });
     res.json(user[0]);
@@ -35,7 +36,7 @@ app.get('/api/posts', async (req, res) => {
   try {
     const posts = await execute(client, async session => {
       const table = await session.getDefaultSchema().getTable('posts');
-      const result = await table.select(['id', 'content', 'likes', 'created', 'author'])
+      const result = await table.select(['id', 'content', 'likes', 'created', 'author', 'liked'])
         .where('removed != true')
         .orderBy('id DESC')
         .execute();
@@ -79,9 +80,41 @@ app.get('/api/posts/:id', async (req, res) => {
   }
 });
 
+app.post('/api/posts/like', async (req, res) => {
+  const { liked, id, likes } = req.body;
+  try {
+    const [post] = await execute(client, async session => {
+      const table = await session.getDefaultSchema().getTable('posts');
+      await table.update()
+        .set('liked', !liked)
+        .set('likes', (!liked ? likes + 1 : likes - 1))
+        .where('id = :id')
+        .bind('id', id)
+        .execute();
+
+      const result = await table.select(['id', 'content', 'likes', 'created', 'author', 'liked'])
+        .where('id = :id')
+        .bind('id', id)
+        .execute();
+
+      return mapRows(result);
+    });
+
+    if (post === undefined) {
+      res.sendStatus(404);
+      return;
+    }
+
+    res.json(post);
+  } catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
+
 app.post('/api/posts', async (req, res) => {
   try {
-    const {body} = req;
+    const { body } = req;
     const [post] = await execute(client, async session => {
       const table = await session.getDefaultSchema().getTable('posts');
       const insert = await table.insert('content').values(body.content).execute();

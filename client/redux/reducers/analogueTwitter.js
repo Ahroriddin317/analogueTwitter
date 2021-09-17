@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const GET_POSTS = 'GET_POSTS';
 const GET_USER = 'GET_USER';
+const UPDATE_POST = 'UPDATE_POST';
 
 const inicialState = {
   user: {},
@@ -15,6 +16,9 @@ export default (state = inicialState, action) => {
 
     case GET_USER:
       return { ...state, user: action.user }
+
+    case UPDATE_POST:
+      return { ...state, posts: state.posts.map((post) => post.id === action.post.id ? action.post : post) }
 
     default: {
       return state
@@ -31,5 +35,15 @@ export const getPosts = () => {
 export const getUser = (id) => {
   return (dispatch) => {
     axios.get(`http://localhost:9999/api/user/${id}`).then(({ data: user }) => dispatch({ type: GET_USER, user }));
+  }
+}
+
+export const like = (id, likes, liked) => {
+  return (dispatch) => {
+    axios.post('http://localhost:9999/api/posts/like', {
+      id,
+      likes,
+      liked
+    }).then(({ data: post }) => dispatch({ type: UPDATE_POST, post }))
   }
 }
