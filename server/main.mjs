@@ -14,6 +14,23 @@ const app = express();
 app.use(cors());
 app.use(json());
 
+app.get('/api/user/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const user = await execute(client, async session => {
+      const table = await session.getDefaultSchema().getTable('users');
+      const result = await table.select(['id', 'firstName', 'lastName', 'postsLiked', 'myPosts'])
+      .where(`id = ${id}`)
+      .execute();
+      return mapRows(result);
+    });
+    res.json(user[0]);
+  } catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+})
+
 app.get('/api/posts', async (req, res) => {
   try {
     const posts = await execute(client, async session => {

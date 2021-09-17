@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getPosts } from '../redux/reducers/analogueTwitter';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 const Posts = () => {
-  const dispatch = useDispatch();
   const { posts } = useSelector(s => s.analogueTwitter);
 
-  useEffect(() => {
-    dispatch(getPosts());
-  }, []);
   return (
     <div>
       {posts.map(({ id, content, likes, created }) => {
@@ -21,7 +16,6 @@ const Posts = () => {
           </div>
         )
       })}
-      gg
     </div>
   )
 }

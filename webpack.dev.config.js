@@ -13,6 +13,7 @@ const config = {
   },
 
   devServer: {
+    historyApiFallback: true,
     hot: true,
     static: {
       directory: resolve(__dirname, 'dist'),

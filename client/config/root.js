@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route, BrowserRouter } from 'react-router-dom'
+import { Switch, Route, BrowserRouter as Router, } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from '../redux'
 
@@ -8,11 +8,11 @@ import App from '../components/App.js'
 const RootComponent = () => {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <Router>
         <Switch>
-          <Route exact path="/" component={App} />
+          <Route exact path="/:id" component={App} />
         </Switch>
-      </BrowserRouter>
+      </Router>
     </Provider>
   )
 }
