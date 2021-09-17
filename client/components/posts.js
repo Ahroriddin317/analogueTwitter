@@ -1,19 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Post from './post';
 
 const Posts = () => {
   const { posts } = useSelector(s => s.analogueTwitter);
 
   return (
     <div>
-      {posts.map(({ id, content, likes, created }) => {
+      {posts.map(({ id, content, likes, author, liked }) => {
         return (
-          <div key={id}>
-            <h1>{id}</h1>
-            <h2>{content}</h2>
-            <h4>{likes}</h4>
-            <h6>{created}</h6>
-          </div>
+          <Post key={id} name={`${author.name}`} content={content} likes={likes} liked={liked}  />
         )
       })}
     </div>

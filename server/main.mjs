@@ -35,7 +35,7 @@ app.get('/api/posts', async (req, res) => {
   try {
     const posts = await execute(client, async session => {
       const table = await session.getDefaultSchema().getTable('posts');
-      const result = await table.select(['id', 'content', 'likes', 'created'])
+      const result = await table.select(['id', 'content', 'likes', 'created', 'author'])
         .where('removed != true')
         .orderBy('id DESC')
         .execute();
