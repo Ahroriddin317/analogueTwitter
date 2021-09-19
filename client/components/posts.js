@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../redux/reducers/analogueTwitter';
+import AddPost from './addPost';
 import Post from './post';
 
 const Posts = () => {
@@ -13,6 +14,7 @@ const Posts = () => {
 
   return (
     <div>
+      <AddPost/>
       {posts.map(({ id, content, likes, author, liked }) => {
         return (
           <Post
