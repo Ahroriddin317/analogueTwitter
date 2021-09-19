@@ -1,6 +1,7 @@
 @import './glass.css';
 @import './navigation.css';
 @import './post.css';
+@import './top.css';
 
 *{
   margin: 0;

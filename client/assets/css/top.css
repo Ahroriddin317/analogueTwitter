@@ -1,0 +1,33 @@
+.top {
+  text-align: center;
+  color: #474950;
+
+  width: 30%;
+  height: 40%;
+
+  padding: 1rem;
+
+  border-radius: 2rem;
+  background: white;
+}
+
+.top div {
+  display: flex;
+  align-items: center;
+  margin-left: 20%;
+}
+
+.top div h1 {
+  margin-right: 0.8rem;
+  font-size: 1.5rem;
+}
+
+.top div p {
+  margin-right: 0.8rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.top div img {
+  margin-right: 0.8rem;
+}
