@@ -38,7 +38,6 @@ app.get('/api/posts', async (req, res) => {
       const table = await session.getDefaultSchema().getTable('posts');
       const result = await table.select(['id', 'content', 'likes', 'created', 'author', 'liked'])
         .where('removed != true')
-        .orderBy('id DESC')
         .execute();
 
       return mapRows(result);
@@ -114,13 +113,13 @@ app.post('/api/posts/like', async (req, res) => {
 
 app.post('/api/posts', async (req, res) => {
   try {
-    const { body } = req;
+    const { userId, name, content } = req.body;
     const [post] = await execute(client, async session => {
       const table = await session.getDefaultSchema().getTable('posts');
-      const insert = await table.insert('content').values(body.content).execute();
+      const insert = await table.insert('content', 'author').values(content, `{"id": ${userId}, "name": "${name}"}`).execute();
       const id = insert.getAutoIncrementValue();
 
-      const result = await table.select(['id', 'content', 'likes', 'created'])
+      const result = await table.select(['id', 'content', 'likes', 'created', 'author', 'liked'])
         .where('id = :id')
         .bind('id', id)
         .execute();

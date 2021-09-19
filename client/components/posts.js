@@ -6,11 +6,12 @@ import Post from './post';
 
 const Posts = () => {
   const dispatch = useDispatch()
-  const { posts } = useSelector(s => s.analogueTwitter);
+  const  data = useSelector(s => s.analogueTwitter.posts);
+  const posts = data.sort((a, b) => b.created - a.created)
 
   useEffect(() => {
     dispatch(getPosts());
-  },[posts])
+  },[posts.length])
 
   return (
     <div>

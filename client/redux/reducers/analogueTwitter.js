@@ -3,6 +3,7 @@ import axios from 'axios';
 const GET_POSTS = 'GET_POSTS';
 const GET_USER = 'GET_USER';
 const UPDATE_POST = 'UPDATE_POST';
+const ADD_NEW_POST = 'ADD_NEW_POST';
 
 const inicialState = {
   user: {},
@@ -19,6 +20,9 @@ export default (state = inicialState, action) => {
 
     case UPDATE_POST:
       return { ...state, posts: state.posts.map((post) => post.id === action.post.id ? action.post : post) }
+
+    case ADD_NEW_POST:
+      return { ...state, posts: [...state.posts, action.post] }
 
     default: {
       return state
@@ -45,5 +49,15 @@ export const like = (id, likes, liked) => {
       likes,
       liked
     }).then(({ data: post }) => dispatch({ type: UPDATE_POST, post }))
+  }
+}
+
+export const addNewPost = (userId, name, content) => {
+  return (dispatch) => {
+    axios.post('http://localhost:9999/api/posts', {
+      userId,
+      name,
+      content
+    }).then(({ data: post }) => dispatch({ type: ADD_NEW_POST, post }))
   }
 }
