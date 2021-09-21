@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
+  "main": "main.js",
   "dependencies": {
     "@mysql/xdevapi": "^8.0.26",
     "@testing-library/jest-dom": "^5.11.4",
@@ -21,7 +22,7 @@
   "scripts": {
     "dev": "yarn run dev:watch & yarn run dev:server",
     "dev:build": "webpack --config ./webpack.dev.config.js",
-    "dev:watch": "webpack-dev-server --config webpack.dev.config.js --open",
+    "dev:watch": "webpack-dev-server --config webpack.dev.config.js --open  --history-api-fallback",
     "start": "react-scripts start",
     "dev:server": "nodemon ./server/main.mjs",
     "build": "react-scripts build",
@@ -63,8 +64,7 @@
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.2.0"
   },
-
-   "nodemonConfig": {
+  "nodemonConfig": {
     "ignore": [
       "client"
     ]

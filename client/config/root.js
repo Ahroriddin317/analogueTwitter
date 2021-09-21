@@ -1,18 +1,22 @@
 import React from 'react'
-import { Switch, Route, BrowserRouter as Router, } from 'react-router-dom'
+import { Switch, Route, StaticRouter, } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import store from '../redux'
+import store, { history } from '../redux'
 
 import App from '../components/App.js'
+import Glass from '../components/glass'
+import Profile from '../components/profile'
+import { ConnectedRouter } from 'connected-react-router'
 
-const RootComponent = () => {
+const RouterSelector = (props) =>
+  typeof window !== 'undefined' ? <ConnectedRouter {...props} /> : <StaticRouter {...props} />
+
+const RootComponent = (props) => {
   return (
     <Provider store={store}>
-      <Router>
-        <Switch>
-          <Route exact path="/:id" component={App} />
-        </Switch>
-      </Router>
+      <RouterSelector history={history} location={props.location} context={props.context}>
+        <Route path="/:id" component={App}/>
+      </RouterSelector>
     </Provider>
   )
 }

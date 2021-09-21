@@ -5,14 +5,14 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { createBrowserHistory } from 'history'
 import rootReducer from './reducers'
 
-export const history = createBrowserHistory()
+export const history = createBrowserHistory({forceRefresh: false})
 
 const composeFunc = process.env.NODE_ENV === 'development' ? composeWithDevTools : compose
 
 
 const store = createStore(
   rootReducer(history),
-  composeFunc(applyMiddleware(routerMiddleware(history), thunk))
+  composeFunc(applyMiddleware(thunk, routerMiddleware(history)))
 )
 export default store
 

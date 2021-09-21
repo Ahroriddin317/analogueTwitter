@@ -14,7 +14,7 @@ function App() {
   }, [])
   return (
     <main className="main">
-      {user.id ? <Glass /> : <h1>User is not found</h1>}
+      {user.id ? <Glass /> : <h1>User is not found</h1>}  
     </main>
   );
 }
