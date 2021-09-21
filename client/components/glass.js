@@ -1,19 +1,11 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Route, Switch, useParams } from 'react-router-dom';
-import { getUser } from '../redux/reducers/analogueTwitter.js';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import Navigation from './navigation.js';
 import Posts from './posts.js';
 import Profile from './profile.js';
 import Top from './top.js';
 
 const Glass = () => {
-  const dispatch = useDispatch();
-  const { id } = useParams();
-
-  useEffect(() => {
-    dispatch(getUser(id));
-  }, [])
   return (
       <div className="glass">
         <Navigation />
