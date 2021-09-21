@@ -27,3 +27,8 @@ li {
   align-items: center;
   justify-content: center;
 }
+
+.active{
+  background-color: #7052f9;
+  color: white;
+}

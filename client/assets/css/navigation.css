@@ -1,18 +1,33 @@
-.nav_button{
+.nav_button {
   background: none;
-  border:none;
+  border: none;
 
-  width: 40px;
-  height: 40px;
+  width: 6rem;
+  height: 3.5rem;
+
+  display: flex;
+  align-items: center;
 
   border-radius: 5px;
   cursor: pointer;
-}
+  color: #44494f;
 
-.nav ul{
-  float: left;
 
   font-size: 18px;
-  color: #44494F;
   font-weight: bold;
+
+  transition: 0.6s;
+}
+
+.nav ul {
+  float: left;
+}
+
+.nav_button img {
+  margin-right: 0.4rem;
+}
+
+.nav_button:hover {
+  background-color: #7052F9;
+  color: white;
 }

@@ -57,12 +57,9 @@
 
   color: white;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .profile_button:hover {
-  background-color: #7052f9;
-}
-
-.active{
   background-color: #7052f9;
 }
