@@ -13,6 +13,12 @@ const Navigation = () => {
           </button>
           posts
         </li>
+        <li>
+          <button className="nav_button" onClick={() => history.push(`/${user.id}/profile`)}>
+            <img src="../assets/svg/user.svg" alt="posts" width="30px" height="30px" />
+          </button>
+          profile
+        </li>
       </ul>
     </nav>
   )

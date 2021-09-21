@@ -3,6 +3,7 @@
 @import './post.css';
 @import './top.css';
 @import './addPost.css';
+@import './profile.css';
 
 *{
   margin: 0;
