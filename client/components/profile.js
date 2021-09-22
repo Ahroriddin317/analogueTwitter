@@ -6,10 +6,11 @@ import Post from './post';
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const [showPosts, setshowPosts] = useState(true);
   const { id } = useParams();
+
   const { profile, posts } = useSelector(s => s.analogueTwitter);
   const { firstName, lastName, myPosts, postsLiked } = profile;
-  const [showPosts, setshowPosts] = useState(true);
 
   const getArray = (array) => {
     return posts.length !== 0 && typeof array !== 'undefined' ? array.reduce((initState, id) => {
@@ -64,6 +65,8 @@ const Profile = () => {
             />
           )
         })}
+        {userPosts.length === 0 && showPosts ? <h1>No posts</h1> : ''}
+        {likedPosts.length === 0 && !showPosts ? <h1>No liked posts</h1> : ''}
       </div>
     </div>
   )

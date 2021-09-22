@@ -2,16 +2,16 @@
   background: none;
   border: none;
 
-  width: 6rem;
+  width: auto;
   height: 3.5rem;
 
   display: flex;
   align-items: center;
 
   border-radius: 5px;
+  padding: 0.2rem;
   cursor: pointer;
   color: #44494f;
-
 
   font-size: 18px;
   font-weight: bold;
@@ -28,6 +28,6 @@
 }
 
 .nav_button:hover {
-  background-color: #7052F9;
+  background-color: #7052f9;
   color: white;
 }

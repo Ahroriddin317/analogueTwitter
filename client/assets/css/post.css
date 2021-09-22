@@ -1,4 +1,4 @@
-.post{
+.post {
   width: 25rem;
   height: auto;
 
@@ -7,18 +7,23 @@
 
   border-radius: 2rem;
 
-  background: linear-gradient(to right top, rgba(255, 255, 255, 0.822), rgb(255,255,255,0.7));
+  background: linear-gradient(
+    to right top,
+    rgba(255, 255, 255, 0.822),
+    rgb(255, 255, 255, 0.7)
+  );
   color: #474950;
 }
 
-.post h1, p{
+.post h1,
+p {
   padding-bottom: 1rem;
   white-space: inherit;
 }
 
 .post button {
   background: none;
-  border:none;
+  border: none;
   outline: none;
 
   display: flex;
