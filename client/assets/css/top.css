@@ -20,12 +20,14 @@
 .top div h1 {
   margin-right: 0.8rem;
   font-size: 1.5rem;
+  white-space: nowrap;
 }
 
 .top div p {
   margin-right: 0.8rem;
   font-size: 1rem;
   margin-top: 1rem;
+  white-space: nowrap;
 }
 
 .top div img {

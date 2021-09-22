@@ -53,14 +53,13 @@ const Profile = () => {
         </button>
       </div>
       <div>
-        {(showPosts ? userPosts : likedPosts).map(({ id, content, likes, author, liked }) => {
+        {(showPosts ? userPosts : likedPosts).map(({ id, content, likes, author }) => {
           return (
             <Post
               key={id}
               name={author.name}
               content={content}
               likes={likes}
-              liked={liked}
               id={id}
             />
           )

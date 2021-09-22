@@ -36,7 +36,7 @@ app.get('/api/posts', async (req, res) => {
   try {
     const posts = await execute(client, async session => {
       const table = await session.getDefaultSchema().getTable('posts');
-      const result = await table.select(['id', 'content', 'likes', 'created', 'author', 'liked'])
+      const result = await table.select(['id', 'content', 'likes', 'created', 'author'])
         .where('removed != true')
         .execute();
 
@@ -49,49 +49,29 @@ app.get('/api/posts', async (req, res) => {
   }
 });
 
-app.get('/api/posts/:id', async (req, res) => {
-  try {
-    const id = Number(req.params.id);
-    if (Number.isNaN(id) || !Number.isFinite(id)) {
-      res.sendStatus(400);
-      return;
-    }
-
-    const [post] = await execute(client, async session => {
-      const table = await session.getDefaultSchema().getTable('posts');
-      const result = await table.select(['id', 'content', 'likes', 'created'])
-        .where('id = :id AND removed != true')
-        .bind('id', id)
-        .execute();
-
-      return mapRows(result);
-    });
-
-    if (post === undefined) {
-      res.sendStatus(404);
-      return;
-    }
-
-    res.json(post);
-  } catch (e) {
-    console.error(e);
-    res.sendStatus(500);
-  }
-});
-
 app.post('/api/posts/like', async (req, res) => {
-  const { liked, id, likes } = req.body;
+  const { liked, id, likes, userId, postsLiked } = req.body;
+  const updateLikes = liked ? likes.filter(like => like !== userId) : [...likes, userId];
+
+  const updatePostsLiked = liked ? postsLiked.filter(postId => postId !== id) : [...postsLiked, id];
+
   try {
     const [post] = await execute(client, async session => {
-      const table = await session.getDefaultSchema().getTable('posts');
-      await table.update()
-        .set('liked', !liked)
-        .set('likes', (!liked ? likes + 1 : likes - 1))
+      const tablePosts = await session.getDefaultSchema().getTable('posts');
+      const tableUsers = await session.getDefaultSchema().getTable('users');
+      await tablePosts.update()
+        .set('likes', updateLikes)
         .where('id = :id')
         .bind('id', id)
         .execute();
 
-      const result = await table.select(['id', 'content', 'likes', 'created', 'author', 'liked'])
+      await tableUsers.update()
+        .set('postsLiked', updatePostsLiked)
+        .where('id = :id')
+        .bind('id', userId)
+        .execute();
+
+      const result = await tablePosts.select(['id', 'content', 'likes', 'created', 'author'])
         .where('id = :id')
         .bind('id', id)
         .execute();
@@ -116,10 +96,10 @@ app.post('/api/posts', async (req, res) => {
     const { userId, name, content } = req.body;
     const [post] = await execute(client, async session => {
       const table = await session.getDefaultSchema().getTable('posts');
-      const insert = await table.insert('content', 'author').values(content, `{"id": ${userId}, "name": "${name}"}`).execute();
+      const insert = await table.insert('content', 'author', 'likes').values(content, `{"id": ${userId}, "name": "${name}"}`, '[]').execute();
       const id = insert.getAutoIncrementValue();
 
-      const result = await table.select(['id', 'content', 'likes', 'created', 'author', 'liked'])
+      const result = await table.select(['id', 'content', 'likes', 'created', 'author'])
         .where('id = :id')
         .bind('id', id)
         .execute();

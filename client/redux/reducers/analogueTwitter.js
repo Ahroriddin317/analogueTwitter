@@ -47,12 +47,14 @@ export const getUser = (id) => {
   }
 }
 
-export const like = (id, likes, liked) => {
+export const like = (id, likes, liked, userId, postsLiked) => {
   return (dispatch) => {
     axios.post('http://localhost:9999/api/posts/like', {
       id,
       likes,
-      liked
+      liked,
+      userId,
+      postsLiked
     }).then(({ data: post }) => dispatch({ type: UPDATE_POST, post }))
   }
 }
