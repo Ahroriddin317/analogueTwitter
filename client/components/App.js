@@ -6,11 +6,11 @@ import Glass from './glass.js';
 
 function App() {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { userId } = useParams();
   const { user, posts } = useSelector(s => s.analogueTwitter);
 
   useEffect(() => {
-    dispatch(getUser(id));
+    dispatch(getUser(userId));
   }, []);
 
   useEffect(() => {

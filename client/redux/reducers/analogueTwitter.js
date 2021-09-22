@@ -4,10 +4,12 @@ const GET_POSTS = 'GET_POSTS';
 const GET_USER = 'GET_USER';
 const UPDATE_POST = 'UPDATE_POST';
 const ADD_NEW_POST = 'ADD_NEW_POST';
+const GET_DATA_PROFILE = 'GET_DATA_PROFILE'
 
 const inicialState = {
   user: {},
   posts: [],
+  profile: {},
 }
 
 export default (state = inicialState, action) => {
@@ -23,6 +25,9 @@ export default (state = inicialState, action) => {
 
     case ADD_NEW_POST:
       return { ...state, posts: [...state.posts, action.post] }
+
+    case GET_DATA_PROFILE:
+      return { ...state, profile: action.user }
 
     default: {
       return state
@@ -59,5 +64,11 @@ export const addNewPost = (userId, name, content) => {
       name,
       content
     }).then(({ data: post }) => dispatch({ type: ADD_NEW_POST, post }))
+  }
+}
+
+export const getDataProfile = (id) => {
+  return (dispatch) => {
+    axios.get(`http://localhost:9999/api/user/${id}`).then(({ data: user }) => dispatch({ type: GET_DATA_PROFILE, user }));
   }
 }

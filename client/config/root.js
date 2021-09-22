@@ -15,7 +15,7 @@ const RootComponent = (props) => {
   return (
     <Provider store={store}>
       <RouterSelector history={history} location={props.location} context={props.context}>
-        <Route path="/:id" component={App}/>
+        <Route path="/:userId" component={App}/>
       </RouterSelector>
     </Provider>
   )

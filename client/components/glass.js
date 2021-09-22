@@ -10,11 +10,11 @@ const Glass = () => {
       <div className="glass">
         <Navigation />
         <Switch>
-          <Route exact path="/:id">
+          <Route exact path="/:userId">
             <Posts />
             <Top />
           </Route>
-          <Route exact path="/:id/profile" component={Profile} />
+          <Route exact path="/:userId/profile/:id" component={Profile} />
         </Switch>
       </div>
   )

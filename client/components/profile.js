@@ -1,21 +1,29 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { getDataProfile } from '../redux/reducers/analogueTwitter';
 import Post from './post';
 
 const Profile = () => {
-  const { user, posts } = useSelector(s => s.analogueTwitter);
-  const [showPosts, setshowPosts] = useState(true)
-  const { firstName, lastName, myPosts, postsLiked } = user;
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const { profile, posts } = useSelector(s => s.analogueTwitter);
+  const { firstName, lastName, myPosts, postsLiked } = profile;
+  const [showPosts, setshowPosts] = useState(true);
 
-  const userPosts = posts.length !== 0 ? myPosts.reduce((initState, id) => {
-    const post = posts.find(post => post.id === id)
-    return [...initState, { ...post }]
-  }, []) : [];
+  const getArray = (array) => {
+    return posts.length !== 0 && typeof array !== 'undefined' ? array.reduce((initState, id) => {
+      const post = posts.find(post => post.id === id)
+      return [...initState, { ...post }]
+    }, []) : [];
+  }
 
-  const likedPosts = posts.length !== 0 ? postsLiked.reduce((initState, id) => {
-    const post = posts.find(post => post.id === id)
-    return [...initState, { ...post }]
-  }, []) : [];
+  const userPosts = getArray(myPosts)
+  const likedPosts = getArray(postsLiked)
+
+  useEffect(() => {
+    dispatch(getDataProfile(id))
+  }, [])
 
   return (
     <div className="profile">

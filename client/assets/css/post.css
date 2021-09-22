@@ -1,6 +1,6 @@
 .post{
   width: 25rem;
-  height: 9rem;
+  height: auto;
 
   margin-bottom: 2rem;
   padding: 1rem;
@@ -13,11 +13,13 @@
 
 .post h1, p{
   padding-bottom: 1rem;
+  white-space: inherit;
 }
 
 .post button {
   background: none;
   border:none;
+  outline: none;
 
   display: flex;
   font-size: 1rem;

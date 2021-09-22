@@ -15,7 +15,7 @@ const Navigation = () => {
           </button>
         </li>
         <li>
-          <button className={`nav_button ${pathname !== -1 ? 'active' : ''}`} onClick={() => history.push(`/${user.id}/profile`)}>
+          <button className={`nav_button ${pathname !== -1 ? 'active' : ''}`} onClick={() => history.push(`/${user.id}/profile/${user.id}`)}>
             <img src="../assets/svg/user.svg" alt="posts" width="30px" height="30px" />
             Profile
           </button>

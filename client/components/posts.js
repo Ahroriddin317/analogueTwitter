@@ -18,6 +18,7 @@ const Posts = () => {
               likes={likes}
               liked={liked}
               id={id}
+              authorId={author.id}
             />
           )
         })}
